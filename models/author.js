@@ -42,19 +42,30 @@ AuthorSchema.virtual("url").get(function () {
   return "/catalog/author/" + this._id;
 });
 
-// Virtual for author's birth date formatted
-AuthorSchema.virtual("date_of_birth_formatted").get(function () {
-  return this.date_of_birth
+// Virtual for author's lifespan formatted
+AuthorSchema.virtual("lifespan_formatted").get(function () {
+  const birth_date = this.date_of_birth
     ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
     : "";
-});
-
-// Virtual for author's birth date formatted
-AuthorSchema.virtual("date_of_death_formatted").get(function () {
-  return this.date_of_death
+  const death_date = this.date_of_death
     ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
     : "";
+  return birth_date + " - " + death_date;
 });
+
+// // Virtual for author's birth date formatted
+// AuthorSchema.virtual("date_of_birth_formatted").get(function () {
+//   return this.date_of_birth
+//     ? DateTime.fromJSDate(this.date_of_birth).toLocaleString(DateTime.DATE_MED)
+//     : "";
+// });
+
+// // Virtual for author's birth date formatted
+// AuthorSchema.virtual("date_of_death_formatted").get(function () {
+//   return this.date_of_death
+//     ? DateTime.fromJSDate(this.date_of_death).toLocaleString(DateTime.DATE_MED)
+//     : "";
+// });
 
 //Export model
 module.exports = mongoose.model("Author", AuthorSchema);
