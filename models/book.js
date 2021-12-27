@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
-const BookSchema = new Schema({
+var BookSchema = new Schema({
   title: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: "Author", required: true },
   summary: { type: String, required: true },
@@ -11,9 +11,9 @@ const BookSchema = new Schema({
 });
 
 // Virtual for book's URL
-BookSchema.virtual("url").get(() => {
-  return `/catalog/book/${this._id}`;
+BookSchema.virtual("url").get(function () {
+  return "/catalog/book/" + this._id;
 });
 
-// Export model
+//Export model
 module.exports = mongoose.model("Book", BookSchema);
